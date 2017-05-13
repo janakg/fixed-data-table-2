@@ -155,6 +155,7 @@ function adjustColumnWidths(
 
 var FixedDataTableWidthHelper = {
   getTotalWidth,
+  getTotalFixedWidth,
   getTotalFlexGrow,
   distributeFlexWidth,
   adjustColumnWidths,
