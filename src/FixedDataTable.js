@@ -538,11 +538,11 @@ var FixedDataTable = createReactClass({
       var scrollbarXWidth = state.width;
       horizontalScrollbar =
         <HorizontalScrollbar
-          contentSize={scrollbarXWidth + state.maxScrollX}
+          contentSize={(scrollbarXWidth-state.fixedColumnsWidth) + state.maxScrollX}
           offset={bottomSectionOffset}
           onScroll={this._onHorizontalScroll}
           position={state.scrollX}
-          size={scrollbarXWidth}
+          size={(scrollbarXWidth-state.fixedColumnsWidth)}
         />;
     }
 
@@ -649,6 +649,7 @@ var FixedDataTable = createReactClass({
         onTouchMove={this._touchHandler.onTouchMove}
         onTouchCancel={this._touchHandler.onTouchCancel}
         style={{height: state.height, width: state.width}}>
+          {horizontalScrollbar}
         <div
           className={cx('fixedDataTableLayout/rowsContainer')}
           style={{height: rowsContainerHeight, width: state.width}}>
@@ -660,8 +661,7 @@ var FixedDataTable = createReactClass({
           {topShadow}
           {bottomShadow}
         </div>
-        {verticalScrollbar}
-        {horizontalScrollbar}
+        {verticalScrollbar}        
       </div>
     );
   },
@@ -1057,6 +1057,8 @@ var FixedDataTable = createReactClass({
     var totalHeightNeeded = scrollContentHeight + totalHeightReserved;
     var scrollContentWidth =
       FixedDataTableWidthHelper.getTotalWidth(columns);
+    var fixedColumnsWidth =
+      FixedDataTableWidthHelper.getTotalFixedWidth(columns);
 
     var horizontalScrollbarVisible = scrollContentWidth > props.width &&
       props.overflowX !== 'hidden' && props.showScrollbarX !== false;
@@ -1123,6 +1125,7 @@ var FixedDataTable = createReactClass({
       height,
       groupHeaderHeight,
       useGroupHeader,
+      fixedColumnsWidth
     };
 
     return newState;
