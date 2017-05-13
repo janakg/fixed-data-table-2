@@ -22,6 +22,15 @@ function getTotalWidth(/*array*/ columns) /*number*/ {
   return totalWidth;
 }
 
+function getTotalFixedWidth( /*array*/columns) /*number*/{
+  var totalWidth = 0;
+  for (var i = 0; i < columns.length; ++i) {
+    if(columns[i].props.fixed)
+      totalWidth += columns[i].props.width;
+  }
+  return totalWidth;
+}
+
 function getTotalFlexGrow(/*array*/ columns) /*number*/ {
   var totalFlexGrow = 0;
   for (var i = 0; i < columns.length; ++i) {
